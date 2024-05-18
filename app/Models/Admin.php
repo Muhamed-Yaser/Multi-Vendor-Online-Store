@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
-class Admin extends Authenticatable  implements MustVerifyEmail
+class Admin extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory ;
+    use Notifiable;
+
     protected $table = 'admins';
+
     protected $fillable = [
-        'id',
         'name',
         'email',
         'password',

@@ -10,15 +10,11 @@ class AdminAuthService
 
     public function loginAdmin($request)
     {
-
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-
+        if (auth()->guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
             session()->regenerate();
             return redirect()->route('dashboard.index');
-        } else {
-
-            return redirect()->back()->withErrors(['email' => 'الميل غير صحيح', 'password' => 'الباس غير صحيح']);
         }
+        return redirect()->back()->withErrors(['email' => 'الميل غير صحيح', 'password' => 'الباس غير صحيح']);
     }
 
     public function checkAuthenticated()
@@ -51,7 +47,7 @@ class AdminAuthService
         return redirect()->route('profile');
     }
 
-    public function logout ()
+    public function logout()
     {
         auth()->guard('admin')->logout();
         return redirect()->route('loginPage');

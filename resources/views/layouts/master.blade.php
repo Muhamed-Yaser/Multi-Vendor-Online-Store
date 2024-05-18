@@ -8,27 +8,22 @@
 
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-         @include('layouts.headerStyles')
+    @include('layouts.headerStyles')
 </head>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
 
         @include('layouts.main-headerbar')
+        <div style="margin-left: 21%;margin-top:2%; color: darkblue">
+            @yield('pageTitle')
+        </div>
+
+        <div style="width: 80%; height: 80vh; margin-left: 20%;">
+            @yield('content')
+        </div>
 
         @include('layouts.main-sidebar')
-
-        @yield('content')
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
-            </div>
-        </aside>
-        <!-- /.control-sidebar -->
 
         @include('layouts.footer')
     </div>
