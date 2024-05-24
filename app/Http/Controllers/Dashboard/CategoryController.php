@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
@@ -14,11 +15,17 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
 
-        $categories = Category::leftJoin('categories as parents' , 'parents.id' , '=' , 'categories.parent_id')
+        $categories = Category::with('parent')  //we used Eager loading instead of join :)
+        /*leftJoin('categories as parents' , 'parents.id' , '=' , 'categories.parent_id')
         ->select([
             'categories.*',
             'parents.name as parent_name'
-        ])
+        ])*/
+        ->withCount('products') /*laravel translate this to :((((( ->select('categories.*')->selectRaw('(SELECT COUNT(*) FROM products WHERE category_id = categories.id) as products_count'))))))  with only acitve products :  ->withCount([
+            'products as products_number' => function($query) {
+                $query->where('status', '=', 'active');
+            }
+        ])*/
         ->filter($request->query())
         ->paginate(4);
 
@@ -43,6 +50,16 @@ class CategoryController extends Controller
         $data['image'] = $this->uploadImage($request);
         $storeCategory = Category::create($data);
         if ($storeCategory) return redirect()->route('dashboard.categories.index')->with('success', 'category created!');
+    }
+
+    public function show(Category $category)
+    {
+        // if (Gate::denies('categories.view')) {
+        //     abort(403);
+        // }
+        return view('dashboard.categories.show', [
+            'category' => $category
+        ]);
     }
 
     public function edit($id)

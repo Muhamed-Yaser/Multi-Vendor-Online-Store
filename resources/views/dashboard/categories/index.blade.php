@@ -46,9 +46,9 @@
                 <tr>
                     <td>{{ $category->sequential_id  }}</td>
                     <td><img src="{{ asset('storage/'.$category->image)}}" alt="" height="50"></td>
-                    <td>{{ $category->name }}</td>
-                    <td>{{ $category->parent_name ?? '-' }}</td>
-                    <td>products</td>
+                    <td><a href="{{ route('dashboard.categories.show', $category->id) }}">{{ $category->name }}</a></td>
+                    <td>{{ $category->parent->name }}</td>
+                    <td>{{ $category->products_count }}</td>
                     <td>{{ $category->status }}</td>
                     <td>{{ $category->created_at }}</td>
                     <td> <a href="{{ route('dashboard.categories.edit', $category->id) }}"

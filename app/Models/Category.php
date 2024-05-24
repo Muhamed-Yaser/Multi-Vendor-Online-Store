@@ -22,6 +22,23 @@ class Category extends Model
         'status'
     ];
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function parent ()
+    {
+        return $this->belongsTo(Category::class , 'parent_id' , 'id')->withDefault([
+            'name' => 'No Parent',
+        ]);
+    }
+
+    public function children ()
+    {
+        return $this->hasMany(Category::class , 'parent_id' , 'id');
+    }
+
     public static function rules($category = 0)
     {
         return [

@@ -3,5 +3,5 @@
    <!-- Theme style -->
    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css')}}">
 
-@stack('styles')
+@yield('styles')
 
