@@ -223,7 +223,7 @@
             </div>
             <div class="row">
                 @foreach ($products as $product)
-                    <x-productContainer product="{{ $product }}" />
+                <x-productContainer :product="$product" />
                 @endforeach
             </div>
         </div>

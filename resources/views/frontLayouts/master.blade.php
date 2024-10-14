@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assetsFront/images/favicon.svg') }}" />
     @include('frontLayouts.headerStyles')
+    @vite('resources/css/app.css')
 </head>
 
 <body class="hold-transition sidebar-mini">

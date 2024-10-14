@@ -1,0 +1,44 @@
+(function ($) {
+    $('.item-quantity').on('change', function (e) {
+
+        $.ajax({
+            url: "/cart/" + $(this).data('id'), //refar to data-id custom attribute
+            method: 'put',
+            data: {
+                quantity: $(this).val(),
+                _token: csrf_token,
+            }
+        })
+    });
+
+    $('.remove-item').on('click', function (e) {
+
+        let id = $(this).data('id');
+        $.ajax({
+            url: "/cart/" + id, //data-id
+            method: 'delete',
+            data: {
+                _token: csrf_token
+            },
+            success: response => {
+                $(`#${id}`).remove();
+            }
+        });
+    });
+
+    $('.add-to-cart').on('click', function (e) {
+
+        $.ajax({
+            url: "/cart",
+            method: 'post',
+            data: {
+                product_id: $(this).data('id'),
+                quantity: $(this).data('quantity'), // if it exists take it!
+                _token: csrf_token
+            },
+            success: response => {
+                alert('product added')
+            }
+        });
+    });
+})(jQuery) // this called self invocable function which call it self after define it as here

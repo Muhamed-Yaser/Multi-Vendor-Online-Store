@@ -11,6 +11,7 @@ class HomeController extends Controller
     public function index()
     {
         $products = Product::with('category')->active()->latest()->take(4)->get();
+        // dd($products);
         return view('front.home', compact('products'));
     }
 }
