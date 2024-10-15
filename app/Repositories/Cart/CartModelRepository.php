@@ -57,7 +57,7 @@ class CartModelRepository
 
     public function empty()
     {
-        Cart::where('cookie_id', '=', $this->getCookieId())->destroy();
+        Cart::where('cookie_id', '=', $this->getCookieId())->delete();
     }
 
     public function total(): float

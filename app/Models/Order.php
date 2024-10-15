@@ -43,7 +43,7 @@ class Order extends Model
             ]);
     }
 
-    public function addressess()
+    public function addresses()
     {
         return $this->hasMany(OrderAddress::class);
     }
@@ -72,14 +72,20 @@ class Order extends Model
     }
 
     public static function getNextOrderNumber()
-    {
-        //SELECT MAX(nubmer) FROM orders
-        $year = Carbon::now()->year();
-        $number = Order::whereYear('created_at', $year)->max('number');
+{
+    $year = Carbon::now()->year;
 
-        if ($number) {
-            return $number + 1;
-        }
-        return $year . ",0001";
+    // Fetch the maximum existing order number for the current year
+    $maxOrderNumber = Order::whereYear('created_at', $year)->max('number');
+
+    // Extract the last four digits and increment if an order exists for the year
+    if ($maxOrderNumber) {
+        $nextNumber = (int) substr($maxOrderNumber, -4) + 1;
+        return $year . sprintf('%04d', $nextNumber); // Format as 4-digit sequential number
     }
+
+    // If no previous order number exists, start from 0001
+    return $year . '0001';
+}
+
 }
