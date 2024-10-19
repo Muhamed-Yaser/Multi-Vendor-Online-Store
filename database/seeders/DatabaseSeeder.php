@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             // Store::factory(5)->create();
             // Category::factory(15)->create();
             // Product::factory(100)->create();
-            User::factory(7)->create();
-           // $this->call(AdminSeeder::class);
+           // User::factory(7)->create();
+           $this->call(AdminSeeder::class);
     }
 }

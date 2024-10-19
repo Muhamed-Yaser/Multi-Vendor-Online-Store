@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class DeductProductQuantity
 {
@@ -33,9 +34,13 @@ class DeductProductQuantity
         //     }
         // }
 
-        $order = $event->order;
-        foreach ($order->products as $product) {
-            $product->decrement('quantity' , $product->pivot->quantity);
+        try {
+            $order = $event->order;
+            foreach ($order->products as $product) {
+                $product->decrement('quantity', $product->pivot->quantity);
+            }
+        } catch (Throwable $e) {
+            
         }
     }
 }

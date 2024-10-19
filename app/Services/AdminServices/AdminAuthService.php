@@ -10,6 +10,7 @@ class AdminAuthService
 
     public function loginAdmin($request)
     {
+        // dd(auth()->guard('admin')->user());
         if (auth()->guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
             session()->regenerate();
             return redirect()->route('dashboard.index');

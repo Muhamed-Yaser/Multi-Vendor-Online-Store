@@ -41,7 +41,13 @@ class CheckOutController extends Controller
 
     public function store(Request $request, CartModelRepository $cart)
     {
-        $request->validate([]);
+        $request->validate([
+            'addr.billing.first_name' => ['required', 'string', 'max:255'], //this shape because name in form is an arry[][]
+            'addr.billing.last_name' => ['required', 'string', 'max:255'],
+            'addr.billing.email' => ['required', 'string', 'max:255'],
+            'addr.billing.phone_number' => ['required', 'string', 'max:255'],
+            'addr.billing.city' => ['required', 'string', 'max:255'],
+        ]);
 
         $items = $cart->get()->groupBy('product.store_id')->all();
 
