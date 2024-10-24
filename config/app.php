@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\Currency;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
@@ -72,6 +73,8 @@ return [
 
     'timezone' => 'Africa/Cairo',
 
+    'currency' => 'USD',
+
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
@@ -83,7 +86,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ar',
 
     /*
     |--------------------------------------------------------------------------
@@ -125,6 +128,8 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -169,6 +174,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\CartServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -183,7 +189,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+        'Currency' => App\Helpers\Currency::class
     ])->toArray(),
 
 ];
