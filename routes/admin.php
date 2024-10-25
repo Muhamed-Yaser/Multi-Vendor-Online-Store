@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\ImportProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +29,8 @@ Route::controller(AdminController::class)->prefix('admin')->group(function () {
 
 //Prfile
 
-    Route::get('/dashboard/profile/edit', [ProfileController::class, 'edit'])->name('dashboard.profile.edit');
-    Route::put('/dashboard/profile/update', [ProfileController::class, 'update'])->name('dashboard.profile.update');
+Route::get('/dashboard/profile/edit', [ProfileController::class, 'edit'])->name('dashboard.profile.edit');
+Route::put('/dashboard/profile/update', [ProfileController::class, 'update'])->name('dashboard.profile.update');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
@@ -48,14 +49,17 @@ Route::resource('dashboard/categories', CategoryController::class)->names([
     'destroy' => 'dashboard.categories.destroy',
 ]);
 
+//import products
+Route::get('/dashboard/products/import', [ImportProductsController::class, 'create'])->name('dashboard.products.import');
+Route::post('/dashboard/products/import', [ImportProductsController::class, 'store']);
 //Products
 Route::resource('dashboard/products', ProductController::class)->names([
     'index' => 'dashboard.products.index',
     // 'create'=>'dashboard.products.create',
     // 'store'=>'dashboard.products.store',
-     'edit'=>'dashboard.products.edit',
-    'update'=>'dashboard.products.update',
-    'destroy'=>'dashboard.products.destroy',
+    'edit' => 'dashboard.products.edit',
+    'update' => 'dashboard.products.update',
+    'destroy' => 'dashboard.products.destroy',
 ]);
 
 //fallback

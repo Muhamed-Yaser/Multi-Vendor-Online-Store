@@ -2,21 +2,21 @@
 
 namespace App\Jobs;
 
-use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class DeleteExpiredOrders implements ShouldQueue
+class ImportProducts implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * Create a new job instance.
      */
-    public function __construct()
+    public function __construct(protected $count)
     {
         //
     }
@@ -26,8 +26,6 @@ class DeleteExpiredOrders implements ShouldQueue
      */
     public function handle(): void
     {
-        Order::whereDate('created_at' ,'<' , now()->subDays(7))
-        ->where('status' , 'pending')
-        ->delete();
+        Product::factory($this->count)->create();
     }
 }
