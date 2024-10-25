@@ -11,11 +11,11 @@
 
 
 @section('content')
-
-    <!-- Start Hero Area -->
-    <section class="hero-area">
-        <div class="container">
-            <div class="row">
+<!-- Start Hero Area -->
+<section class="hero-area">
+    <div class="container">
+        <div class="row">
+                <x-alert type="info"/>
                 <div class="col-lg-8 col-12 custom-padding-right">
                     <div class="slider-head">
                         <!-- Start Hero Slider -->

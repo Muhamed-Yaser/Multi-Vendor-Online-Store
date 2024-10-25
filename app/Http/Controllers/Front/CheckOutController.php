@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Events\OrderCreated;
+use App\Exceptions\InvalidOrderException;
 use Throwable;
 use App\Models\Cart;
 use App\Models\Order;
@@ -27,16 +28,22 @@ class CheckOutController extends Controller
 
     public function create()
     {
-        if ($this->cart->get()->count() == 0) {
-            return redirect()->route('home')->with('failure', 'cart is empty');
-        }
+        try {
+            if ($this->cart->get()->count() == 0) {
+                throw new InvalidOrderException("Cart is empty");
+            }
 
-        $total = $this->cart->total();
-        return view('front.checkout', [
-            'cart' => $this->cart,
-            'countries' => Countries::getNames(),
-            'total' =>$total
-        ]);
+            $total = $this->cart->total();
+            return view('front.checkout', [
+                'cart' => $this->cart,
+                'countries' => Countries::getNames(),
+                'total' => $total
+            ]);
+        } catch (InvalidOrderException $e) {
+            return redirect()->route('front.index') // Redirect to the home page
+                ->withErrors(['message' => $e->getMessage()])
+                ->with('info', $e->getMessage());
+        }
     }
 
     public function store(Request $request, CartModelRepository $cart)
@@ -81,7 +88,6 @@ class CheckOutController extends Controller
             //event('order.created' , $order , Auth::user()); //call enent with its name
             //event(new OrderCreated($order , Auth::user())); //  call event as object
             event(new OrderCreated($order));
-
         } catch (Throwable $e) {
             DB::rollBack();
             throw $e;
