@@ -18,7 +18,7 @@ class ImportProductsController extends Controller
     {
         $job = new ImportProducts($request->post('count'));
         $job->onQueue('import')->delay(now()->addSeconds(5));
-        $this->dispatch($job);
+        dispatch($job);
 
         return redirect()
             ->route('dashboard.products.index')
