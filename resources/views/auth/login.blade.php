@@ -69,7 +69,10 @@
                                         </div>
                                         <button class="btn btn-primary btn-user btn-block">Login</button>
                                         <hr>
-
+                                        <div class="btn btn-info btn-user btn-block"><a class="btn google-btn"
+                                                href="{{ route('social.redirect', 'google') }}"><i
+                                                    class="lni lni-google"></i> Google login</a>
+                                        </div>
                                     </form>
                                     <hr>
                                     <div class="text-center">

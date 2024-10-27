@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AdminController;
+use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\Auth\ProfileController;
 use App\Http\Controllers\Dashboard\ProductController;
 use App\Http\Controllers\Dashboard\CategoryController;
@@ -26,6 +27,11 @@ Route::controller(AdminController::class)->prefix('admin')->group(function () {
     Route::post('login', 'login')->name('login');
     Route::get('/logout', 'logout')->name('logout');
 });
+
+//socialite
+Route::get('auth/{provider}/redirect' , [SocialLoginController::class , 'redirect'])->name('social.redirect');
+Route::get('auth/{provider}/callback' , [SocialLoginController::class , 'callback'])->name('social.callback');
+
 
 //Prfile
 
